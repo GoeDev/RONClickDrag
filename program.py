@@ -1,6 +1,9 @@
-import math
-
 from pynput import mouse
+from pynput.keyboard import Key, Controller
+
+import time
+
+keyboard = Controller()
 
 #globale Variablen
 active = False
@@ -12,16 +15,35 @@ threshold = 20
 def on_move(x, y):
 	global startpos
 	global active
+	global keyboard
 	if(active):
-		print("active: " + str(active) + ", pos: " + str(startpos))
 		deltax = startpos[0] - x
 		deltay = startpos[1] - y
-		#Satz des Pythagoras
-		delta = math.sqrt(math.pow(deltax, 2) + math.pow(deltay, 2))
 		#Grenzwert erreicht?
-		if(delta > threshold):
-			print("Grenzwert erreicht!")
-	#print('Pointer moved to {0}'.format((x, y)))
+		if(deltax > threshold):
+			print("Grenzwert für x erreicht!")
+			#neue "Start"-Position für nächsten Schritt
+			startpos = (x, startpos[1])
+			if(deltax < 0):
+				keyboard.press(Key.left)
+				time.sleep(0.05)
+				keyboard.release(Key.left)
+			else:
+				keyboard.press(Key.right)
+				time.sleep(0.05)
+				keyboard.release(Key.right)
+		if(deltay > threshold):
+			print("Grenzwert für y erreicht!")
+			#neue "Start"-Position für nächsten Schritt
+			startpos = (startpos[0], y)
+			if(deltay < 0):
+				keyboard.press(Key.up)
+				time.sleep(0.05)
+				keyboard.release(Key.up)
+			else:
+				keyboard.press(Key.down)
+				time.sleep(0.05)
+				keyboard.release(Key.down)
 
 def on_click(x, y, button, pressed):
 	global active
