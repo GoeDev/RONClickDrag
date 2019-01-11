@@ -7,7 +7,7 @@ https://pypi.org/project/pynput/
 
 
 Plan:
--feste pollingrate
+(-feste pollingrate) ergibt bei eventbasierter Verarbeitung wenig Sinn
 
 -delta zwischen zwei ticks
 
