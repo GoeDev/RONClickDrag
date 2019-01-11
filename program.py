@@ -2,6 +2,7 @@ from pynput import mouse
 from pynput.keyboard import Key, Controller
 
 import time
+import math
 
 keyboard = Controller()
 
@@ -20,19 +21,20 @@ def on_move(x, y):
 		deltax = startpos[0] - x
 		deltay = startpos[1] - y
 		#Grenzwert erreicht?
-		if(deltax > threshold):
+		if(math.fabs(deltax) > threshold):
 			print("Grenzwert für x erreicht!")
 			#neue "Start"-Position für nächsten Schritt
 			startpos = (x, startpos[1])
 			if(deltax < 0):
 				keyboard.press(Key.left)
+				#TODO: Sleep-werte anpassen (an den relativen Threshold)
 				time.sleep(0.05)
 				keyboard.release(Key.left)
 			else:
 				keyboard.press(Key.right)
 				time.sleep(0.05)
 				keyboard.release(Key.right)
-		if(deltay > threshold):
+		if(math.fabs(deltay) > threshold):
 			print("Grenzwert für y erreicht!")
 			#neue "Start"-Position für nächsten Schritt
 			startpos = (startpos[0], y)
