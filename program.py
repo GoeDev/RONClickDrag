@@ -21,6 +21,7 @@ def on_move(x, y):
 		deltax = startpos[0] - x
 		deltay = startpos[1] - y
 		#Grenzwert erreicht?
+		#TODO: paralleles überprüfen beider Richtungen gegen "Zickzack"
 		if(math.fabs(deltax) > threshold):
 			print("Grenzwert für x erreicht!")
 			#neue "Start"-Position für nächsten Schritt
